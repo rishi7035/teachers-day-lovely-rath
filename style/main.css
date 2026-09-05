@@ -18,6 +18,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+
   margin: 0;
   padding: 0;
 }
@@ -31,9 +32,11 @@ body {
 }
 
 body {
-  background: var(--background);
+  background:
+    var(--background);
 
-  color: var(--text);
+  color:
+    var(--text);
 
   font-family:
     "Poppins",
@@ -42,12 +45,17 @@ body {
     "Segoe UI",
     sans-serif;
 
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing:
+    antialiased;
 
-  text-rendering: optimizeLegibility;
+  text-rendering:
+    optimizeLegibility;
 
-  user-select: none;
-  -webkit-user-select: none;
+  user-select:
+    none;
+
+  -webkit-user-select:
+    none;
 }
 
 /* ============================================================
@@ -66,6 +74,7 @@ body {
   position: relative;
 
   width: 100%;
+
   height: 100vh;
   height: 100dvh;
 
@@ -79,6 +88,7 @@ body {
       rgba(212, 175, 55, 0.055),
       transparent 38%
     ),
+
     var(--background);
 }
 
@@ -106,20 +116,39 @@ body {
   background:
     radial-gradient(
       circle,
-      rgba(212, 175, 55, 0.11) 0%,
-      rgba(212, 175, 55, 0.045) 35%,
-      transparent 72%
+
+      rgba(
+        212,
+        175,
+        55,
+        0.11
+      )
+      0%,
+
+      rgba(
+        212,
+        175,
+        55,
+        0.045
+      )
+      35%,
+
+      transparent
+      72%
     );
 
-  filter: blur(25px);
+  filter:
+    blur(25px);
 
-  pointer-events: none;
+  pointer-events:
+    none;
 
-  z-index: 0;
+  z-index:
+    0;
 }
 
 /* ============================================================
-   PARTICLES
+   AMBIENT PARTICLES
    ============================================================ */
 
 .particle-layer {
@@ -142,11 +171,21 @@ body {
   border-radius: 50%;
 
   background:
-    rgba(212, 175, 55, 0.7);
+    rgba(
+      212,
+      175,
+      55,
+      0.7
+    );
 
   box-shadow:
     0 0 8px
-    rgba(212, 175, 55, 0.25);
+    rgba(
+      212,
+      175,
+      55,
+      0.25
+    );
 }
 
 /* ============================================================
@@ -193,15 +232,18 @@ body {
 
   font-weight: 300;
 
-  letter-spacing: -0.02em;
+  letter-spacing:
+    -0.02em;
 
-  color: var(--text);
+  color:
+    var(--text);
 }
 
 .cinematic-text.emphasis {
   font-weight: 500;
 
-  color: var(--accent);
+  color:
+    var(--accent);
 }
 
 .reveal-text {
@@ -229,20 +271,23 @@ body {
 }
 
 /* ============================================================
-   GOLD ACCENT
+   GOLD LINE
    ============================================================ */
-
-/*
-   Deliberately positioned below the text.
-   It no longer passes through the words.
-*/
 
 .golden-line {
   position: fixed;
 
   left: 50%;
 
-  top: calc(50% + 4.5rem);
+  /*
+   * IMPORTANT:
+   * The line sits below the text.
+   */
+
+  top:
+    calc(
+      50% + 4.8rem
+    );
 
   width:
     min(
@@ -255,7 +300,8 @@ body {
   transform:
     translateX(-50%);
 
-  transform-origin: center;
+  transform-origin:
+    center;
 
   background:
     linear-gradient(
@@ -267,15 +313,21 @@ body {
 
   box-shadow:
     0 0 14px
-    rgba(212, 175, 55, 0.28);
+    rgba(
+      212,
+      175,
+      55,
+      0.28
+    );
 
   z-index: 3;
 
-  pointer-events: none;
+  pointer-events:
+    none;
 }
 
 /* ============================================================
-   PROFILE
+   TEACHER PROFILE
    ============================================================ */
 
 .profile-scene {
@@ -306,15 +358,19 @@ body {
       0.85rem
     );
 
-  letter-spacing: 0.28em;
+  letter-spacing:
+    0.28em;
 
   font-weight: 500;
 
-  color: var(--primary);
+  color:
+    var(--primary);
 
-  opacity: 0.85;
+  opacity:
+    0.85;
 
-  margin-bottom: 0.9rem;
+  margin-bottom:
+    0.9rem;
 }
 
 .teacher-name {
@@ -325,19 +381,25 @@ body {
       5rem
     );
 
-  line-height: 1.08;
+  line-height:
+    1.08;
 
-  font-weight: 500;
+  font-weight:
+    500;
 
-  letter-spacing: -0.035em;
+  letter-spacing:
+    -0.035em;
 
-  color: var(--text);
+  color:
+    var(--text);
 
-  max-width: 95%;
+  max-width:
+    95%;
 }
 
 .teacher-role {
-  margin-top: 0.65rem;
+  margin-top:
+    0.65rem;
 
   font-size:
     clamp(
@@ -346,11 +408,14 @@ body {
       1.1rem
     );
 
-  font-weight: 300;
+  font-weight:
+    300;
 
-  letter-spacing: 0.08em;
+  letter-spacing:
+    0.08em;
 
-  color: var(--muted);
+  color:
+    var(--muted);
 }
 
 /* ============================================================
@@ -360,7 +425,8 @@ body {
 .photo-frame {
   position: relative;
 
-  margin-top: 2rem;
+  margin-top:
+    2rem;
 
   width:
     clamp(
@@ -376,35 +442,60 @@ body {
       370px
     );
 
-  overflow: hidden;
+  overflow:
+    hidden;
 
-  border-radius: 8px;
+  border-radius:
+    8px;
 
   border:
     1px solid
-    rgba(212, 175, 55, 0.35);
+    rgba(
+      212,
+      175,
+      55,
+      0.35
+    );
 
-  background: #10141e;
+  background:
+    #10141e;
 
   box-shadow:
     0 25px 80px
-    rgba(0, 0, 0, 0.55),
+    rgba(
+      0,
+      0,
+      0,
+      0.55
+    ),
 
     0 0 40px
-    rgba(212, 175, 55, 0.08);
+    rgba(
+      212,
+      175,
+      55,
+      0.08
+    );
 
-  isolation: isolate;
+  isolation:
+    isolate;
 }
 
 .teacher-photo {
-  width: 100%;
-  height: 100%;
+  width:
+    100%;
 
-  display: block;
+  height:
+    100%;
 
-  object-fit: cover;
+  display:
+    block;
 
-  object-position: center;
+  object-fit:
+    cover;
+
+  object-position:
+    center;
 
   filter:
     saturate(0.92)
@@ -413,22 +504,40 @@ body {
 }
 
 .photo-glow {
-  position: absolute;
+  position:
+    absolute;
 
-  inset: 0;
+  inset:
+    0;
 
   background:
     linear-gradient(
       135deg,
-      rgba(212, 175, 55, 0.13),
+
+      rgba(
+        212,
+        175,
+        55,
+        0.13
+      ),
+
       transparent 35%,
+
       transparent 65%,
-      rgba(212, 175, 55, 0.08)
+
+      rgba(
+        212,
+        175,
+        55,
+        0.08
+      )
     );
 
-  pointer-events: none;
+  pointer-events:
+    none;
 
-  z-index: 2;
+  z-index:
+    2;
 }
 
 /* ============================================================
@@ -455,13 +564,17 @@ body {
       1.65rem
     );
 
-  line-height: 1.9;
+  line-height:
+    1.9;
 
-  font-weight: 300;
+  font-weight:
+    300;
 
-  color: var(--text);
+  color:
+    var(--text);
 
-  opacity: 0.9;
+  opacity:
+    0.9;
 }
 
 /* ============================================================
@@ -469,7 +582,8 @@ body {
    ============================================================ */
 
 .final-text {
-  max-width: 850px;
+  max-width:
+    850px;
 
   font-size:
     clamp(
@@ -480,9 +594,11 @@ body {
 }
 
 .final-emphasis {
-  color: var(--accent);
+  color:
+    var(--accent);
 
-  font-weight: 500;
+  font-weight:
+    500;
 }
 
 /* ============================================================
@@ -490,27 +606,41 @@ body {
    ============================================================ */
 
 .closing-scene {
-  z-index: 9;
+  z-index:
+    9;
 
   background:
     radial-gradient(
       circle at center,
-      rgba(212, 175, 55, 0.055),
+
+      rgba(
+        212,
+        175,
+        55,
+        0.055
+      ),
+
       transparent 45%
     ),
+
     var(--background);
 }
 
 .closing-content {
-  display: flex;
+  display:
+    flex;
 
-  flex-direction: column;
+  flex-direction:
+    column;
 
-  align-items: center;
+  align-items:
+    center;
 
-  justify-content: center;
+  justify-content:
+    center;
 
-  width: 90vw;
+  width:
+    90vw;
 }
 
 .closing-title {
@@ -521,17 +651,22 @@ body {
       5rem
     );
 
-  line-height: 1.1;
+  line-height:
+    1.1;
 
-  font-weight: 500;
+  font-weight:
+    500;
 
-  color: var(--accent);
+  color:
+    var(--accent);
 
-  letter-spacing: -0.035em;
+  letter-spacing:
+    -0.035em;
 }
 
 .closing-name {
-  margin-top: 0.8rem;
+  margin-top:
+    0.8rem;
 
   font-size:
     clamp(
@@ -540,13 +675,16 @@ body {
       1.5rem
     );
 
-  color: var(--text);
+  color:
+    var(--text);
 
-  font-weight: 300;
+  font-weight:
+    300;
 }
 
 .closing-line {
-  margin-top: 2rem;
+  margin-top:
+    2rem;
 
   font-size:
     clamp(
@@ -555,44 +693,65 @@ body {
       1.1rem
     );
 
-  color: var(--muted);
+  color:
+    var(--muted);
 
-  letter-spacing: 0.06em;
+  letter-spacing:
+    0.06em;
 
-  font-weight: 300;
+  font-weight:
+    300;
 }
 
 /* ============================================================
-   REPLAY
+   REPLAY BUTTON
    ============================================================ */
 
 .replay-button {
-  margin-top: 2.8rem;
+  margin-top:
+    2.8rem;
 
   padding:
     0.65rem
     1.4rem;
 
-  border-radius: 999px;
+  border-radius:
+    999px;
 
   border:
     1px solid
-    rgba(212, 175, 55, 0.4);
+    rgba(
+      212,
+      175,
+      55,
+      0.4
+    );
 
   background:
-    rgba(212, 175, 55, 0.05);
+    rgba(
+      212,
+      175,
+      55,
+      0.05
+    );
 
-  color: var(--accent);
+  color:
+    var(--accent);
 
-  font-family: inherit;
+  font-family:
+    inherit;
 
-  font-size: 0.8rem;
+  font-size:
+    0.8rem;
 
-  letter-spacing: 0.08em;
+  letter-spacing:
+    0.08em;
 
-  cursor: pointer;
+  cursor:
+    pointer;
 
-  pointer-events: auto;
+  pointer-events:
+    auto;
 
   transition:
     background 0.3s ease,
@@ -602,10 +761,20 @@ body {
 
 .replay-button:hover {
   background:
-    rgba(212, 175, 55, 0.12);
+    rgba(
+      212,
+      175,
+      55,
+      0.12
+    );
 
   border-color:
-    rgba(212, 175, 55, 0.7);
+    rgba(
+      212,
+      175,
+      55,
+      0.7
+    );
 
   transform:
     translateY(-2px);
@@ -621,39 +790,83 @@ body {
    ============================================================ */
 
 .sound-button {
-  position: fixed;
+  position:
+    fixed;
 
-  left: 50%;
+  left:
+    50%;
 
-  bottom: 1.4rem;
+  bottom:
+    1.4rem;
 
   transform:
     translateX(-50%);
 
-  z-index: 999;
+  z-index:
+    999;
 
   padding:
     0.55rem
     1.2rem;
 
-  border-radius: 999px;
+  border-radius:
+    999px;
 
   border:
     1px solid
-    rgba(212, 175, 55, 0.35);
+    rgba(
+      212,
+      175,
+      55,
+      0.35
+    );
 
   background:
-    rgba(8, 11, 18, 0.8);
+    rgba(
+      8,
+      11,
+      18,
+      0.8
+    );
 
-  backdrop-filter: blur(12px);
+  backdrop-filter:
+    blur(12px);
 
-  color: var(--accent);
+  color:
+    var(--accent);
 
-  font-family: inherit;
+  font-family:
+    inherit;
 
-  font-size: 0.75rem;
+  font-size:
+    0.75rem;
 
-  cursor: pointer;
+  cursor:
+    pointer;
+}
+
+/* ============================================================
+   REALISTIC CONFETTI CANVAS
+   ============================================================ */
+
+.confetti-canvas {
+  position:
+    fixed;
+
+  inset:
+    0;
+
+  width:
+    100%;
+
+  height:
+    100%;
+
+  pointer-events:
+    none;
+
+  z-index:
+    50;
 }
 
 /* ============================================================
@@ -668,35 +881,44 @@ body {
   }
 
   .cinematic-text {
-    max-width: 90vw;
+    max-width:
+      90vw;
   }
 
   .teacher-name {
-    max-width: 92vw;
+    max-width:
+      92vw;
   }
 
   .photo-frame {
-    margin-top: 1.6rem;
+    margin-top:
+      1.6rem;
   }
 
   .appreciation-text {
-    line-height: 1.8;
+    line-height:
+      1.8;
   }
 
   .closing-line {
-    margin-top: 1.5rem;
+    margin-top:
+      1.5rem;
   }
 
   .replay-button {
-    margin-top: 2.2rem;
+    margin-top:
+      2.2rem;
   }
 
   .golden-line {
-    top: calc(50% + 4rem);
+    top:
+      calc(
+        50% + 4rem
+      );
 
-    width: 120px;
+    width:
+      120px;
   }
-
 }
 
 /* ============================================================
@@ -706,55 +928,70 @@ body {
 @media screen and (max-height: 600px) {
 
   .photo-frame {
-    width: 150px;
+    width:
+      150px;
 
-    height: 190px;
+    height:
+      190px;
 
-    margin-top: 1rem;
+    margin-top:
+      1rem;
   }
 
   .teacher-role {
-    margin-top: 0.35rem;
+    margin-top:
+      0.35rem;
   }
 
   .profile-label {
-    margin-bottom: 0.4rem;
+    margin-bottom:
+      0.4rem;
   }
 
   .appreciation-text {
-    font-size: 0.95rem;
+    font-size:
+      0.95rem;
 
-    line-height: 1.6;
+    line-height:
+      1.6;
   }
 
   .closing-line {
-    margin-top: 1rem;
+    margin-top:
+      1rem;
   }
 
   .replay-button {
-    margin-top: 1.3rem;
+    margin-top:
+      1.3rem;
   }
 
   .golden-line {
-    top: calc(50% + 3.5rem);
+    top:
+      calc(
+        50% + 3.5rem
+      );
   }
-
 }
 
 /* ============================================================
    REDUCED MOTION
    ============================================================ */
 
-@media (prefers-reduced-motion: reduce) {
+@media (
+  prefers-reduced-motion: reduce
+) {
 
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
+    animation-duration:
+      0.01ms !important;
 
-    animation-iteration-count: 1 !important;
+    animation-iteration-count:
+      1 !important;
 
-    transition-duration: 0.01ms !important;
+    transition-duration:
+      0.01ms !important;
   }
-
-   }
+       }
