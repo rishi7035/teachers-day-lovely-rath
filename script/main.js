@@ -1,9 +1,12 @@
 /*
- * Cinematic Teachers' Day Experience
+ * ============================================================
+ * CINEMATIC TEACHERS' DAY EXPERIENCE
  * Mrs. Lovely Rath
+ * ============================================================
  */
 
 document.addEventListener("DOMContentLoaded", () => {
+
   const container = document.querySelector(".container");
   const audio = document.querySelector(".song");
 
@@ -11,10 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const M = C.messages;
 
   let timeline;
+  let confettiAnimation = null;
+  let confettiPieces = [];
 
-  // ============================================================
-  // HELPERS
-  // ============================================================
+  /* ==========================================================
+     BASIC HELPERS
+     ========================================================== */
 
   function createElement(tag, className, text = "") {
     const element = document.createElement(tag);
@@ -39,26 +44,30 @@ document.addEventListener("DOMContentLoaded", () => {
     text,
     className = "cinematic-text"
   ) {
-    const section = createElement("section", "scene");
 
-    const textElement = createElement(
-      "div",
-      className,
-      text
-    );
+    const section =
+      createElement("section", "scene");
+
+    const textElement =
+      createElement(
+        "div",
+        className,
+        text
+      );
 
     section.appendChild(textElement);
+
     add(section);
 
     return {
       section,
-      text: textElement,
+      text: textElement
     };
   }
 
-  // ============================================================
-  // COLORS
-  // ============================================================
+  /* ==========================================================
+     THEME
+     ========================================================== */
 
   document.documentElement.style.setProperty(
     "--primary",
@@ -85,39 +94,55 @@ document.addEventListener("DOMContentLoaded", () => {
     C.colors.muted
   );
 
-  // ============================================================
-  // BACKGROUND AMBIENCE
-  // ============================================================
+  /* ==========================================================
+     AMBIENT BACKGROUND
+     ========================================================== */
 
-  const backgroundGlow = createElement(
-    "div",
-    "background-glow"
-  );
+  const backgroundGlow =
+    createElement(
+      "div",
+      "background-glow"
+    );
 
   add(backgroundGlow);
 
-  // Small floating particles
-  const particleLayer = createElement(
-    "div",
-    "particle-layer"
-  );
+  const particleLayer =
+    createElement(
+      "div",
+      "particle-layer"
+    );
 
   add(particleLayer);
 
-  const particleCount = 28;
+  /*
+   * Small ambient particles.
+   * These remain extremely subtle.
+   */
+
+  const particleCount = 30;
+
   const particles = [];
 
-  for (let i = 0; i < particleCount; i++) {
-    const particle = createElement(
-      "span",
-      "particle"
-    );
+  for (
+    let i = 0;
+    i < particleCount;
+    i++
+  ) {
+
+    const particle =
+      createElement(
+        "span",
+        "particle"
+      );
 
     const size =
       Math.random() * 2.5 + 1;
 
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
+    particle.style.width =
+      `${size}px`;
+
+    particle.style.height =
+      `${size}px`;
 
     particle.style.left =
       `${Math.random() * 100}%`;
@@ -126,206 +151,315 @@ document.addEventListener("DOMContentLoaded", () => {
       `${Math.random() * 100}%`;
 
     particle.style.opacity =
-      `${Math.random() * 0.45 + 0.15}`;
+      `${Math.random() * 0.4 + 0.1}`;
 
-    particleLayer.appendChild(particle);
+    particleLayer.appendChild(
+      particle
+    );
+
     particles.push(particle);
   }
 
-  // Slowly move particles
-  particles.forEach((particle) => {
-    gsap.to(particle, {
-      x: gsap.utils.random(-35, 35),
-      y: gsap.utils.random(-55, 55),
-      opacity: gsap.utils.random(0.15, 0.65),
-      duration: gsap.utils.random(4, 8),
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-      delay: Math.random() * 4,
-    });
-  });
+  /*
+   * Natural floating movement.
+   */
 
-  // Slowly move the ambient glow
-  gsap.to(backgroundGlow, {
-    scale: 1.18,
-    opacity: 0.7,
-    duration: 5,
-    repeat: -1,
-    yoyo: true,
-    ease: "sine.inOut",
-  });
+  particles.forEach(
+    (particle) => {
 
-  // ============================================================
-  // OPENING
-  // ============================================================
+      gsap.to(
+        particle,
+        {
+          x:
+            gsap.utils.random(
+              -35,
+              35
+            ),
 
-  const opening1 = createTextScreen(
-    M.opening[0],
-    "cinematic-text"
-  );
+          y:
+            gsap.utils.random(
+              -55,
+              55
+            ),
 
-  const opening2 = createTextScreen(
-    M.opening[1],
-    "cinematic-text emphasis"
-  );
+          opacity:
+            gsap.utils.random(
+              0.15,
+              0.65
+            ),
 
-  gsap.set(
-    [opening1.section, opening2.section],
-    {
-      autoAlpha: 0,
+          duration:
+            gsap.utils.random(
+              4,
+              8
+            ),
+
+          repeat: -1,
+
+          yoyo: true,
+
+          ease:
+            "sine.inOut",
+
+          delay:
+            Math.random() * 4
+        }
+      );
+
     }
   );
 
-  // ============================================================
-  // MIDDLE
-  // ============================================================
+  /*
+   * Slow breathing background glow.
+   */
+
+  gsap.to(
+    backgroundGlow,
+    {
+      scale: 1.18,
+      opacity: 0.72,
+
+      duration: 5,
+
+      repeat: -1,
+
+      yoyo: true,
+
+      ease:
+        "sine.inOut"
+    }
+  );
+
+  /* ==========================================================
+     OPENING
+     ========================================================== */
+
+  const opening1 =
+    createTextScreen(
+      M.opening[0],
+      "cinematic-text"
+    );
+
+  const opening2 =
+    createTextScreen(
+      M.opening[1],
+      "cinematic-text emphasis"
+    );
+
+  gsap.set(
+    [
+      opening1.section,
+      opening2.section
+    ],
+    {
+      autoAlpha: 0
+    }
+  );
+
+  /* ==========================================================
+     MIDDLE STATEMENTS
+     ========================================================== */
 
   const middleScenes = [];
 
-  M.middle.forEach((message, index) => {
-    const scene = createTextScreen(
-      message,
-      index % 2 === 1
-        ? "cinematic-text emphasis"
-        : "cinematic-text"
-    );
+  M.middle.forEach(
+    (message, index) => {
 
-    gsap.set(scene.section, {
-      autoAlpha: 0,
-    });
+      const scene =
+        createTextScreen(
+          message,
 
-    middleScenes.push(scene);
-  });
+          index % 2 === 1
+            ? "cinematic-text emphasis"
+            : "cinematic-text"
+        );
 
-  // ============================================================
-  // REVEAL
-  // ============================================================
+      gsap.set(
+        scene.section,
+        {
+          autoAlpha: 0
+        }
+      );
 
-  const reveal = createTextScreen(
-    M.reveal,
-    "cinematic-text reveal-text"
-  );
-
-  const thankYou = createTextScreen(
-    M.thankYou,
-    "cinematic-text thankyou-text"
-  );
-
-  gsap.set(
-    [reveal.section, thankYou.section],
-    {
-      autoAlpha: 0,
+      middleScenes.push(
+        scene
+      );
     }
   );
 
-  // ============================================================
-  // GOLD ACCENT LINE
-  // ============================================================
+  /* ==========================================================
+     REVEAL
+     ========================================================== */
 
-  const goldenLine = createElement(
-    "div",
-    "golden-line"
+  const reveal =
+    createTextScreen(
+      M.reveal,
+      "cinematic-text reveal-text"
+    );
+
+  const thankYou =
+    createTextScreen(
+      M.thankYou,
+      "cinematic-text thankyou-text"
+    );
+
+  gsap.set(
+    [
+      reveal.section,
+      thankYou.section
+    ],
+    {
+      autoAlpha: 0
+    }
   );
+
+  /* ==========================================================
+     GOLD ACCENT LINE
+     ========================================================== */
+
+  const goldenLine =
+    createElement(
+      "div",
+      "golden-line"
+    );
 
   add(goldenLine);
 
-  gsap.set(goldenLine, {
-    scaleX: 0,
-    autoAlpha: 0,
-  });
-
-  // ============================================================
-  // TEACHER PROFILE
-  // ============================================================
-
-  const profile = createElement(
-    "section",
-    "scene profile-scene"
+  gsap.set(
+    goldenLine,
+    {
+      scaleX: 0,
+      autoAlpha: 0
+    }
   );
 
-  const profileContent = createElement(
-    "div",
-    "profile-content"
-  );
+  /* ==========================================================
+     TEACHER PROFILE
+     ========================================================== */
 
-  const smallLabel = createElement(
-    "div",
-    "profile-label",
-    "WITH GRATITUDE"
-  );
+  const profile =
+    createElement(
+      "section",
+      "scene profile-scene"
+    );
 
-  const teacherName = createElement(
-    "h1",
-    "teacher-name",
-    C.name
-  );
+  const profileContent =
+    createElement(
+      "div",
+      "profile-content"
+    );
 
-  const teacherRole = createElement(
-    "div",
-    "teacher-role",
-    C.role
-  );
+  const smallLabel =
+    createElement(
+      "div",
+      "profile-label",
+      "WITH GRATITUDE"
+    );
 
-  const photoFrame = createElement(
-    "div",
-    "photo-frame"
-  );
+  const teacherName =
+    createElement(
+      "h1",
+      "teacher-name",
+      C.name
+    );
 
-  const photo = createElement(
-    "img",
-    "teacher-photo"
-  );
+  const teacherRole =
+    createElement(
+      "div",
+      "teacher-role",
+      C.role
+    );
+
+  const photoFrame =
+    createElement(
+      "div",
+      "photo-frame"
+    );
+
+  const photo =
+    createElement(
+      "img",
+      "teacher-photo"
+    );
 
   photo.src = C.photo;
+
   photo.alt = C.name;
+
   photo.loading = "eager";
 
-  const photoGlow = createElement(
-    "div",
-    "photo-glow"
+  const photoGlow =
+    createElement(
+      "div",
+      "photo-glow"
+    );
+
+  photoFrame.appendChild(
+    photo
   );
 
-  photoFrame.appendChild(photo);
-  photoFrame.appendChild(photoGlow);
+  photoFrame.appendChild(
+    photoGlow
+  );
 
-  profileContent.appendChild(smallLabel);
-  profileContent.appendChild(teacherName);
-  profileContent.appendChild(teacherRole);
-  profileContent.appendChild(photoFrame);
+  profileContent.appendChild(
+    smallLabel
+  );
 
-  profile.appendChild(profileContent);
+  profileContent.appendChild(
+    teacherName
+  );
+
+  profileContent.appendChild(
+    teacherRole
+  );
+
+  profileContent.appendChild(
+    photoFrame
+  );
+
+  profile.appendChild(
+    profileContent
+  );
+
   add(profile);
 
-  gsap.set(profile, {
-    autoAlpha: 0,
-  });
+  gsap.set(
+    profile,
+    {
+      autoAlpha: 0
+    }
+  );
 
   gsap.set(
     [
       smallLabel,
       teacherName,
       teacherRole,
-      photoFrame,
+      photoFrame
     ],
     {
       autoAlpha: 0,
-      y: 25,
+      y: 25
     }
   );
 
-  gsap.set(photo, {
-    scale: 1.08,
-  });
-
-  // ============================================================
-  // APPRECIATION
-  // ============================================================
-
-  const appreciation = createElement(
-    "section",
-    "scene appreciation-scene"
+  gsap.set(
+    photo,
+    {
+      scale: 1.08
+    }
   );
+
+  /* ==========================================================
+     APPRECIATION
+     ========================================================== */
+
+  const appreciation =
+    createElement(
+      "section",
+      "scene appreciation-scene"
+    );
 
   const appreciationContent =
     createElement(
@@ -361,50 +495,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
   add(appreciation);
 
-  gsap.set(appreciation, {
-    autoAlpha: 0,
-  });
+  gsap.set(
+    appreciation,
+    {
+      autoAlpha: 0
+    }
+  );
 
   gsap.set(
     [
       appreciationSmall,
-      appreciationText,
+      appreciationText
     ],
     {
       autoAlpha: 0,
-      y: 25,
+      y: 25
     }
   );
 
-  // ============================================================
-  // FINAL IMPACT
-  // ============================================================
+  /* ==========================================================
+     FINAL EMOTIONAL TWIST
+     ========================================================== */
 
-  const final1 = createTextScreen(
-    M.finalOne,
-    "cinematic-text final-text"
-  );
+  const final1 =
+    createTextScreen(
+      M.finalOne,
+      "cinematic-text final-text"
+    );
 
-  const final2 = createTextScreen(
-    M.finalTwo,
-    "cinematic-text final-text final-emphasis"
-  );
+  const final2 =
+    createTextScreen(
+      M.finalTwo,
+      "cinematic-text final-text final-emphasis"
+    );
 
   gsap.set(
-    [final1.section, final2.section],
+    [
+      final1.section,
+      final2.section
+    ],
     {
-      autoAlpha: 0,
+      autoAlpha: 0
     }
   );
 
-  // ============================================================
-  // CLOSING
-  // ============================================================
+  /* ==========================================================
+     FINAL CLOSING
+     ========================================================== */
 
-  const closing = createElement(
-    "section",
-    "scene closing-scene"
-  );
+  const closing =
+    createElement(
+      "section",
+      "scene closing-scene"
+    );
 
   const closingContent =
     createElement(
@@ -462,40 +605,493 @@ document.addEventListener("DOMContentLoaded", () => {
 
   add(closing);
 
-  gsap.set(closing, {
-    autoAlpha: 0,
-  });
+  gsap.set(
+    closing,
+    {
+      autoAlpha: 0
+    }
+  );
 
   gsap.set(
     [
       closingTitle,
       closingName,
       closingLine,
-      replay,
+      replay
     ],
     {
       autoAlpha: 0,
-      y: 20,
+      y: 20
     }
   );
 
-  // ============================================================
-  // MUSIC
-  // ============================================================
+  /* ==========================================================
+     REALISTIC CONFETTI
+     ========================================================== */
+
+  const confettiCanvas =
+    document.createElement(
+      "canvas"
+    );
+
+  confettiCanvas.className =
+    "confetti-canvas";
+
+  document.body.appendChild(
+    confettiCanvas
+  );
+
+  const ctx =
+    confettiCanvas.getContext(
+      "2d"
+    );
+
+  function resizeConfettiCanvas() {
+
+    const dpr =
+      Math.min(
+        window.devicePixelRatio || 1,
+        2
+      );
+
+    confettiCanvas.width =
+      window.innerWidth * dpr;
+
+    confettiCanvas.height =
+      window.innerHeight * dpr;
+
+    confettiCanvas.style.width =
+      `${window.innerWidth}px`;
+
+    confettiCanvas.style.height =
+      `${window.innerHeight}px`;
+
+    ctx.setTransform(
+      dpr,
+      0,
+      0,
+      dpr,
+      0,
+      0
+    );
+  }
+
+  resizeConfettiCanvas();
+
+  window.addEventListener(
+    "resize",
+    resizeConfettiCanvas
+  );
+
+  /*
+   * Create one piece of confetti.
+   */
+
+  function createConfettiPiece(
+    x,
+    y,
+    angle,
+    power
+  ) {
+
+    const colors = [
+      "#d4af37",
+      "#f0d98a",
+      "#ffffff",
+      "#e7c75f",
+      "#b8962e"
+    ];
+
+    const width =
+      Math.random() * 7 + 4;
+
+    const height =
+      Math.random() * 11 + 5;
+
+    return {
+
+      x,
+      y,
+
+      vx:
+        Math.cos(angle) *
+        power *
+        (
+          0.75 +
+          Math.random() * 0.5
+        ),
+
+      vy:
+        Math.sin(angle) *
+        power *
+        (
+          0.75 +
+          Math.random() * 0.5
+        ),
+
+      width,
+
+      height,
+
+      rotation:
+        Math.random() *
+        Math.PI *
+        2,
+
+      rotationSpeed:
+        (
+          Math.random() - 0.5
+        ) * 0.25,
+
+      gravity:
+        0.13 +
+        Math.random() * 0.06,
+
+      drag:
+        0.985 +
+        Math.random() * 0.008,
+
+      wobble:
+        Math.random() *
+        Math.PI *
+        2,
+
+      wobbleSpeed:
+        0.04 +
+        Math.random() * 0.05,
+
+      wobbleAmount:
+        0.5 +
+        Math.random() * 0.7,
+
+      opacity: 1,
+
+      life:
+        260 +
+        Math.random() * 150,
+
+      color:
+        colors[
+          Math.floor(
+            Math.random() *
+            colors.length
+          )
+        ]
+    };
+  }
+
+  /*
+   * Create a burst.
+   */
+
+  function confettiBurst(
+    originX,
+    originY,
+    amount = 70,
+    spread = Math.PI * 0.9,
+    power = 9
+  ) {
+
+    for (
+      let i = 0;
+      i < amount;
+      i++
+    ) {
+
+      const angle =
+        -Math.PI / 2 +
+        (
+          Math.random() - 0.5
+        ) * spread;
+
+      confettiPieces.push(
+        createConfettiPiece(
+          originX +
+            (
+              Math.random() - 0.5
+            ) * 20,
+
+          originY +
+            (
+              Math.random() - 0.5
+            ) * 15,
+
+          angle,
+
+          power *
+            (
+              0.75 +
+              Math.random() * 0.45
+            )
+        )
+      );
+    }
+  }
+
+  /*
+   * Draw and animate confetti.
+   */
+
+  function drawConfetti() {
+
+    ctx.clearRect(
+      0,
+      0,
+      window.innerWidth,
+      window.innerHeight
+    );
+
+    confettiPieces =
+      confettiPieces.filter(
+        (piece) =>
+          piece.life > 0
+      );
+
+    confettiPieces.forEach(
+      (piece) => {
+
+        /*
+         * Gravity.
+         */
+
+        piece.vy +=
+          piece.gravity;
+
+        /*
+         * Air resistance.
+         */
+
+        piece.vx *=
+          piece.drag;
+
+        piece.vy *=
+          0.997;
+
+        /*
+         * Natural flutter.
+         */
+
+        piece.wobble +=
+          piece.wobbleSpeed;
+
+        piece.x +=
+          piece.vx +
+          Math.sin(
+            piece.wobble
+          ) *
+          piece.wobbleAmount;
+
+        piece.y +=
+          piece.vy;
+
+        /*
+         * Rotation.
+         */
+
+        piece.rotation +=
+          piece.rotationSpeed;
+
+        /*
+         * Lifetime.
+         */
+
+        piece.life--;
+
+        /*
+         * Fade near the end.
+         */
+
+        if (
+          piece.life < 45
+        ) {
+
+          piece.opacity =
+            piece.life / 45;
+        }
+
+        if (
+          piece.opacity <= 0
+        ) {
+          return;
+        }
+
+        ctx.save();
+
+        ctx.translate(
+          piece.x,
+          piece.y
+        );
+
+        ctx.rotate(
+          piece.rotation
+        );
+
+        ctx.globalAlpha =
+          piece.opacity;
+
+        ctx.fillStyle =
+          piece.color;
+
+        /*
+         * Simulated 3D flipping.
+         */
+
+        const flip =
+          Math.cos(
+            piece.wobble
+          );
+
+        const drawWidth =
+          piece.width *
+          Math.max(
+            0.18,
+            Math.abs(flip)
+          );
+
+        ctx.fillRect(
+          -drawWidth / 2,
+          -piece.height / 2,
+          drawWidth,
+          piece.height
+        );
+
+        ctx.restore();
+      }
+    );
+
+    /*
+     * Continue animation while
+     * pieces are still alive.
+     */
+
+    if (
+      confettiPieces.length > 0
+    ) {
+
+      confettiAnimation =
+        requestAnimationFrame(
+          drawConfetti
+        );
+
+    } else {
+
+      confettiAnimation =
+        null;
+
+      ctx.clearRect(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+      );
+    }
+  }
+
+  /*
+   * Start the final celebration.
+   */
+
+  function startConfetti() {
+
+    confettiPieces = [];
+
+    if (
+      confettiAnimation
+    ) {
+
+      cancelAnimationFrame(
+        confettiAnimation
+      );
+
+      confettiAnimation =
+        null;
+    }
+
+    /*
+     * Major left burst.
+     */
+
+    confettiBurst(
+      window.innerWidth * 0.20,
+      window.innerHeight * 0.82,
+      80,
+      Math.PI * 0.95,
+      9
+    );
+
+    /*
+     * Major right burst.
+     */
+
+    confettiBurst(
+      window.innerWidth * 0.80,
+      window.innerHeight * 0.82,
+      80,
+      Math.PI * 0.95,
+      9
+    );
+
+    drawConfetti();
+
+    /*
+     * Second smaller burst.
+     */
+
+    setTimeout(
+      () => {
+
+        confettiBurst(
+          window.innerWidth * 0.35,
+          window.innerHeight * 0.88,
+          35,
+          Math.PI * 0.75,
+          7.5
+        );
+
+        confettiBurst(
+          window.innerWidth * 0.65,
+          window.innerHeight * 0.88,
+          35,
+          Math.PI * 0.75,
+          7.5
+        );
+
+        if (
+          !confettiAnimation
+        ) {
+          drawConfetti();
+        }
+
+      },
+      550
+    );
+  }
+
+  /* ==========================================================
+     MUSIC
+     ========================================================== */
 
   function tryMusic() {
-    if (!audio || !C.music) {
+
+    if (
+      !audio ||
+      !C.music
+    ) {
       return;
     }
 
-    audio.src = C.music;
+    audio.src =
+      C.music;
 
-    audio.play().catch(() => {
-      showSoundButton();
-    });
+    audio.play().catch(
+      () => {
+        showSoundButton();
+      }
+    );
   }
 
   function showSoundButton() {
+
     if (
       document.querySelector(
         ".sound-button"
@@ -504,274 +1100,378 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const button = createElement(
-      "button",
-      "sound-button",
-      "Tap for music"
-    );
+    const button =
+      createElement(
+        "button",
+        "sound-button",
+        "Tap for music"
+      );
 
-    document.body.appendChild(button);
+    document.body.appendChild(
+      button
+    );
 
     button.addEventListener(
       "click",
       () => {
-        audio.play().catch(() => {});
+
+        audio
+          .play()
+          .catch(() => {});
+
         button.remove();
+
       },
       {
-        once: true,
+        once: true
       }
     );
   }
 
-  // ============================================================
-  // TIMELINE
-  // ============================================================
+  /* ==========================================================
+     MAIN TIMELINE
+     ========================================================== */
 
   function createTimeline() {
-    const tl = gsap.timeline({
-      paused: true,
-    });
 
-    // ----------------------------------------------------------
-    // START
-    // ----------------------------------------------------------
+    const tl =
+      gsap.timeline({
+        paused: true
+      });
 
-    tl.to(".container", {
-      autoAlpha: 1,
-      duration: 0.8,
-    });
+    /* --------------------------------------------------------
+       START
+       -------------------------------------------------------- */
 
-    // ----------------------------------------------------------
-    // OPENING 1
-    // ----------------------------------------------------------
+    tl.to(
+      ".container",
+      {
+        autoAlpha: 1,
+        duration: 0.8
+      }
+    );
 
-    tl.to(opening1.section, {
-      autoAlpha: 1,
-      duration: 0.8,
-    });
+    /* --------------------------------------------------------
+       OPENING 1
+       -------------------------------------------------------- */
+
+    tl.to(
+      opening1.section,
+      {
+        autoAlpha: 1,
+        duration: 0.8
+      }
+    );
 
     tl.fromTo(
       opening1.text,
+
       {
         y: 20,
-        autoAlpha: 0,
+        autoAlpha: 0
       },
+
       {
         y: 0,
         autoAlpha: 1,
         duration: 1.2,
-        ease: "power3.out",
+        ease:
+          "power3.out"
       }
     );
 
-    tl.to({}, {
-      duration: 1.4,
-    });
+    tl.to(
+      {},
+      {
+        duration: 1.4
+      }
+    );
 
-    tl.to(opening1.text, {
-      y: -20,
-      autoAlpha: 0,
-      duration: 0.7,
-    });
+    tl.to(
+      opening1.text,
+      {
+        y: -20,
+        autoAlpha: 0,
+        duration: 0.7
+      }
+    );
 
-    tl.to(opening1.section, {
-      autoAlpha: 0,
-      duration: 0.4,
-    });
+    tl.to(
+      opening1.section,
+      {
+        autoAlpha: 0,
+        duration: 0.4
+      }
+    );
 
-    // ----------------------------------------------------------
-    // OPENING 2
-    // ----------------------------------------------------------
+    /* --------------------------------------------------------
+       OPENING 2
+       -------------------------------------------------------- */
 
-    tl.to(opening2.section, {
-      autoAlpha: 1,
-      duration: 0.5,
-    });
+    tl.to(
+      opening2.section,
+      {
+        autoAlpha: 1,
+        duration: 0.5
+      }
+    );
 
     tl.fromTo(
       opening2.text,
+
       {
         scale: 0.96,
         y: 25,
-        autoAlpha: 0,
+        autoAlpha: 0
       },
+
       {
         scale: 1,
         y: 0,
         autoAlpha: 1,
         duration: 1.3,
-        ease: "power3.out",
+        ease:
+          "power3.out"
       }
     );
 
-    tl.to({}, {
-      duration: 1.5,
-    });
+    tl.to(
+      {},
+      {
+        duration: 1.5
+      }
+    );
 
-    tl.to(opening2.text, {
-      autoAlpha: 0,
-      scale: 1.04,
-      duration: 0.7,
-    });
+    tl.to(
+      opening2.text,
+      {
+        autoAlpha: 0,
+        scale: 1.04,
+        duration: 0.7
+      }
+    );
 
-    tl.to(opening2.section, {
-      autoAlpha: 0,
-      duration: 0.3,
-    });
+    tl.to(
+      opening2.section,
+      {
+        autoAlpha: 0,
+        duration: 0.3
+      }
+    );
 
-    // ----------------------------------------------------------
-    // MIDDLE
-    // ----------------------------------------------------------
+    /* --------------------------------------------------------
+       MIDDLE STATEMENTS
+       -------------------------------------------------------- */
 
     middleScenes.forEach(
       (scene, index) => {
-        tl.to(scene.section, {
-          autoAlpha: 1,
-          duration: 0.4,
-        });
+
+        tl.to(
+          scene.section,
+          {
+            autoAlpha: 1,
+            duration: 0.4
+          }
+        );
 
         tl.fromTo(
           scene.text,
+
           {
             y: 25,
-            autoAlpha: 0,
+            autoAlpha: 0
           },
+
           {
             y: 0,
             autoAlpha: 1,
             duration: 0.9,
-            ease: "power3.out",
+            ease:
+              "power3.out"
           }
         );
 
-        tl.to({}, {
-          duration:
-            index ===
-            middleScenes.length - 1
-              ? 1.2
-              : 0.8,
-        });
+        tl.to(
+          {},
+          {
+            duration:
+              index ===
+              middleScenes.length - 1
+                ? 1.2
+                : 0.8
+          }
+        );
 
-        tl.to(scene.text, {
-          y: -20,
-          autoAlpha: 0,
-          duration: 0.55,
-        });
+        tl.to(
+          scene.text,
+          {
+            y: -20,
+            autoAlpha: 0,
+            duration: 0.55
+          }
+        );
 
-        tl.to(scene.section, {
-          autoAlpha: 0,
-          duration: 0.3,
-        });
+        tl.to(
+          scene.section,
+          {
+            autoAlpha: 0,
+            duration: 0.3
+          }
+        );
       }
     );
 
-    // ----------------------------------------------------------
-    // REVEAL
-    // ----------------------------------------------------------
+    /* --------------------------------------------------------
+       AND TODAY
+       -------------------------------------------------------- */
 
-    tl.to(reveal.section, {
-      autoAlpha: 1,
-      duration: 0.5,
-    });
+    tl.to(
+      reveal.section,
+      {
+        autoAlpha: 1,
+        duration: 0.5
+      }
+    );
 
     tl.fromTo(
       reveal.text,
+
       {
         y: 20,
-        autoAlpha: 0,
+        autoAlpha: 0
       },
+
       {
         y: 0,
         autoAlpha: 1,
         duration: 1,
+        ease:
+          "power3.out"
       }
     );
 
-    tl.to({}, {
-      duration: 1,
-    });
+    tl.to(
+      {},
+      {
+        duration: 1
+      }
+    );
 
-    tl.to(reveal.text, {
-      autoAlpha: 0,
-      duration: 0.5,
-    });
+    tl.to(
+      reveal.text,
+      {
+        autoAlpha: 0,
+        duration: 0.5
+      }
+    );
 
-    tl.to(reveal.section, {
-      autoAlpha: 0,
-      duration: 0.3,
-    });
+    tl.to(
+      reveal.section,
+      {
+        autoAlpha: 0,
+        duration: 0.3
+      }
+    );
 
-    // ----------------------------------------------------------
-    // GOLD ACCENT
-    // ----------------------------------------------------------
+    /* --------------------------------------------------------
+       GOLD LINE
+       -------------------------------------------------------- */
 
-    tl.to(goldenLine, {
-      autoAlpha: 1,
-      scaleX: 1,
-      duration: 0.9,
-      ease: "power3.inOut",
-    });
+    tl.to(
+      goldenLine,
+      {
+        autoAlpha: 1,
+        scaleX: 1,
+        duration: 0.9,
+        ease:
+          "power3.inOut"
+      }
+    );
 
-    tl.to({}, {
-      duration: 0.4,
-    });
+    tl.to(
+      {},
+      {
+        duration: 0.4
+      }
+    );
 
-    // ----------------------------------------------------------
-    // THANK YOU
-    // ----------------------------------------------------------
+    /* --------------------------------------------------------
+       THANK YOU
+       -------------------------------------------------------- */
 
-    tl.to(thankYou.section, {
-      autoAlpha: 1,
-      duration: 0.4,
-    });
+    tl.to(
+      thankYou.section,
+      {
+        autoAlpha: 1,
+        duration: 0.4
+      }
+    );
 
     tl.fromTo(
       thankYou.text,
+
       {
         y: 25,
-        autoAlpha: 0,
+        autoAlpha: 0
       },
+
       {
         y: 0,
         autoAlpha: 1,
         duration: 1.2,
-        ease: "power3.out",
+        ease:
+          "power3.out"
       }
     );
 
-    tl.to({}, {
-      duration: 1.2,
-    });
+    tl.to(
+      {},
+      {
+        duration: 1.2
+      }
+    );
 
-    // IMPORTANT:
-    // remove the line BEFORE the text disappears
-    // so it never crosses the message.
+    /*
+     * GOLD LINE DISAPPEARS FIRST.
+     * Therefore it can never cross the text.
+     */
 
-    tl.to(goldenLine, {
-      scaleX: 0,
-      autoAlpha: 0,
-      duration: 0.6,
-    });
+    tl.to(
+      goldenLine,
+      {
+        scaleX: 0,
+        autoAlpha: 0,
+        duration: 0.6
+      }
+    );
 
-    tl.to(thankYou.text, {
-      autoAlpha: 0,
-      duration: 0.5,
-    });
+    tl.to(
+      thankYou.text,
+      {
+        autoAlpha: 0,
+        duration: 0.5
+      }
+    );
 
-    tl.to(thankYou.section, {
-      autoAlpha: 0,
-      duration: 0.3,
-    });
+    tl.to(
+      thankYou.section,
+      {
+        autoAlpha: 0,
+        duration: 0.3
+      }
+    );
 
-    // ----------------------------------------------------------
-    // TEACHER REVEAL
-    // ----------------------------------------------------------
+    /* --------------------------------------------------------
+       TEACHER REVEAL
+       -------------------------------------------------------- */
 
-    tl.to(profile, {
-      autoAlpha: 1,
-      duration: 0.7,
-    });
+    tl.to(
+      profile,
+      {
+        autoAlpha: 1,
+        duration: 0.7
+      }
+    );
 
     tl.to(
       smallLabel,
@@ -779,7 +1479,8 @@ document.addEventListener("DOMContentLoaded", () => {
         autoAlpha: 1,
         y: 0,
         duration: 0.6,
-        ease: "power3.out",
+        ease:
+          "power3.out"
       }
     );
 
@@ -789,7 +1490,8 @@ document.addEventListener("DOMContentLoaded", () => {
         autoAlpha: 1,
         y: 0,
         duration: 0.9,
-        ease: "power3.out",
+        ease:
+          "power3.out"
       },
       "-=0.25"
     );
@@ -800,14 +1502,15 @@ document.addEventListener("DOMContentLoaded", () => {
         autoAlpha: 1,
         y: 0,
         duration: 0.7,
-        ease: "power3.out",
+        ease:
+          "power3.out"
       },
       "-=0.35"
     );
 
-    // ----------------------------------------------------------
-    // PHOTO
-    // ----------------------------------------------------------
+    /* --------------------------------------------------------
+       PHOTO REVEAL
+       -------------------------------------------------------- */
 
     tl.to(
       photoFrame,
@@ -815,7 +1518,8 @@ document.addEventListener("DOMContentLoaded", () => {
         autoAlpha: 1,
         y: 0,
         duration: 1.1,
-        ease: "power3.out",
+        ease:
+          "power3.out"
       },
       "+=0.15"
     );
@@ -825,37 +1529,48 @@ document.addEventListener("DOMContentLoaded", () => {
       {
         scale: 1,
         duration: 2,
-        ease: "power2.out",
+        ease:
+          "power2.out"
       },
       "<"
     );
 
-    tl.to({}, {
-      duration: 1.8,
-    });
+    tl.to(
+      {},
+      {
+        duration: 1.8
+      }
+    );
 
-    // ----------------------------------------------------------
-    // APPRECIATION
-    // ----------------------------------------------------------
+    /* --------------------------------------------------------
+       APPRECIATION
+       -------------------------------------------------------- */
 
-    tl.to(profile, {
-      autoAlpha: 0,
-      y: -20,
-      duration: 0.8,
-      ease: "power2.in",
-    });
+    tl.to(
+      profile,
+      {
+        autoAlpha: 0,
+        y: -20,
+        duration: 0.8,
+        ease:
+          "power2.in"
+      }
+    );
 
-    tl.to(appreciation, {
-      autoAlpha: 1,
-      duration: 0.7,
-    });
+    tl.to(
+      appreciation,
+      {
+        autoAlpha: 1,
+        duration: 0.7
+      }
+    );
 
     tl.to(
       appreciationSmall,
       {
         autoAlpha: 1,
         y: 0,
-        duration: 0.7,
+        duration: 0.7
       }
     );
 
@@ -865,110 +1580,151 @@ document.addEventListener("DOMContentLoaded", () => {
         autoAlpha: 1,
         y: 0,
         duration: 1.1,
-        ease: "power3.out",
+        ease:
+          "power3.out"
       },
       "-=0.2"
     );
 
-    tl.to({}, {
-      duration: 2.3,
-    });
+    tl.to(
+      {},
+      {
+        duration: 2.3
+      }
+    );
 
     tl.to(
       [
         appreciationSmall,
-        appreciationText,
+        appreciationText
       ],
       {
         autoAlpha: 0,
         y: -15,
-        duration: 0.6,
+        duration: 0.6
       }
     );
 
-    tl.to(appreciation, {
-      autoAlpha: 0,
-      duration: 0.5,
-    });
+    tl.to(
+      appreciation,
+      {
+        autoAlpha: 0,
+        duration: 0.5
+      }
+    );
 
-    // ----------------------------------------------------------
-    // FINAL TWIST
-    // ----------------------------------------------------------
+    /* --------------------------------------------------------
+       THE FINAL TWIST
+       -------------------------------------------------------- */
 
-    tl.to(final1.section, {
-      autoAlpha: 1,
-      duration: 0.5,
-    });
+    tl.to(
+      final1.section,
+      {
+        autoAlpha: 1,
+        duration: 0.5
+      }
+    );
 
     tl.fromTo(
       final1.text,
+
       {
         y: 20,
-        autoAlpha: 0,
+        autoAlpha: 0
       },
+
       {
         y: 0,
         autoAlpha: 1,
         duration: 1,
+        ease:
+          "power3.out"
       }
     );
 
-    tl.to({}, {
-      duration: 1.3,
-    });
+    tl.to(
+      {},
+      {
+        duration: 1.3
+      }
+    );
 
-    tl.to(final1.text, {
-      autoAlpha: 0,
-      duration: 0.6,
-    });
+    tl.to(
+      final1.text,
+      {
+        autoAlpha: 0,
+        duration: 0.6
+      }
+    );
 
-    tl.to(final1.section, {
-      autoAlpha: 0,
-      duration: 0.3,
-    });
+    tl.to(
+      final1.section,
+      {
+        autoAlpha: 0,
+        duration: 0.3
+      }
+    );
 
-    tl.to(final2.section, {
-      autoAlpha: 1,
-      duration: 0.5,
-    });
+    tl.to(
+      final2.section,
+      {
+        autoAlpha: 1,
+        duration: 0.5
+      }
+    );
 
     tl.fromTo(
       final2.text,
+
       {
         scale: 0.95,
-        autoAlpha: 0,
+        autoAlpha: 0
       },
+
       {
         scale: 1,
         autoAlpha: 1,
         duration: 1.3,
-        ease: "power3.out",
+        ease:
+          "power3.out"
       }
     );
 
-    tl.to({}, {
-      duration: 1.8,
-    });
+    tl.to(
+      {},
+      {
+        duration: 1.8
+      }
+    );
 
-    tl.to(final2.text, {
-      autoAlpha: 0,
-      scale: 1.03,
-      duration: 0.7,
-    });
+    tl.to(
+      final2.text,
+      {
+        autoAlpha: 0,
+        scale: 1.03,
+        duration: 0.7
+      }
+    );
 
-    tl.to(final2.section, {
-      autoAlpha: 0,
-      duration: 0.4,
-    });
+    tl.to(
+      final2.section,
+      {
+        autoAlpha: 0,
+        duration: 0.4
+      }
+    );
 
-    // ----------------------------------------------------------
-    // CLOSING
-    // ----------------------------------------------------------
+    /* --------------------------------------------------------
+       FINAL SCREEN
+       -------------------------------------------------------- */
 
-    tl.to(closing, {
-      autoAlpha: 1,
-      duration: 1,
-    });
+    tl.to(
+      closing,
+      {
+        autoAlpha: 1,
+        duration: 1
+      }
+    );
 
     tl.to(
       closingTitle,
@@ -976,7 +1732,8 @@ document.addEventListener("DOMContentLoaded", () => {
         autoAlpha: 1,
         y: 0,
         duration: 1.1,
-        ease: "power3.out",
+        ease:
+          "power3.out"
       }
     );
 
@@ -985,7 +1742,7 @@ document.addEventListener("DOMContentLoaded", () => {
       {
         autoAlpha: 1,
         y: 0,
-        duration: 0.8,
+        duration: 0.8
       },
       "-=0.35"
     );
@@ -995,7 +1752,7 @@ document.addEventListener("DOMContentLoaded", () => {
       {
         autoAlpha: 1,
         y: 0,
-        duration: 0.7,
+        duration: 0.7
       },
       "-=0.3"
     );
@@ -1005,34 +1762,80 @@ document.addEventListener("DOMContentLoaded", () => {
       {
         autoAlpha: 1,
         y: 0,
-        duration: 0.6,
+        duration: 0.6
       },
       "+=0.8"
     );
 
+    /*
+     * CONFETTI STARTS ONLY AFTER
+     * THE FINAL SCREEN IS FULLY VISIBLE.
+     */
+
+    tl.call(() => {
+      startConfetti();
+    });
+
     return tl;
   }
 
-  // ============================================================
-  // REPLAY
-  // ============================================================
+  /* ==========================================================
+     REPLAY
+     ========================================================== */
 
-  replay.addEventListener("click", () => {
-    if (!timeline) {
-      timeline = createTimeline();
+  replay.addEventListener(
+    "click",
+    () => {
+
+      /*
+       * Remove old confetti.
+       */
+
+      confettiPieces = [];
+
+      if (
+        confettiAnimation
+      ) {
+
+        cancelAnimationFrame(
+          confettiAnimation
+        );
+
+        confettiAnimation =
+          null;
+      }
+
+      ctx.clearRect(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+      );
+
+      /*
+       * Restart animation.
+       */
+
+      if (!timeline) {
+        timeline =
+          createTimeline();
+      }
+
+      timeline.restart();
+
+      tryMusic();
     }
+  );
 
-    timeline.restart();
-    tryMusic();
-  });
+  /* ==========================================================
+     START
+     ========================================================== */
 
-  // ============================================================
-  // START
-  // ============================================================
-
-  timeline = createTimeline();
+  timeline =
+    createTimeline();
 
   timeline.play();
 
   tryMusic();
+
 });
