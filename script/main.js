@@ -1,8 +1,6 @@
 /*
  * Cinematic Teachers' Day Experience
- * Designed for Mrs. Lovely Rath
- *
- * GSAP is used for all animation.
+ * Mrs. Lovely Rath
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -13,11 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const M = C.messages;
 
   let timeline;
-  let started = false;
 
-  // ------------------------------------------------------------
-  // Helpers
-  // ------------------------------------------------------------
+  // ============================================================
+  // HELPERS
+  // ============================================================
 
   function createElement(tag, className, text = "") {
     const element = document.createElement(tag);
@@ -38,7 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
     return element;
   }
 
-  function createTextScreen(text, className = "cinematic-text") {
+  function createTextScreen(
+    text,
+    className = "cinematic-text"
+  ) {
     const section = createElement("section", "scene");
 
     const textElement = createElement(
@@ -56,15 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  function hide(element) {
-    gsap.set(element, {
-      autoAlpha: 0,
-    });
-  }
-
-  // ------------------------------------------------------------
-  // Theme
-  // ------------------------------------------------------------
+  // ============================================================
+  // COLORS
+  // ============================================================
 
   document.documentElement.style.setProperty(
     "--primary",
@@ -91,9 +85,9 @@ document.addEventListener("DOMContentLoaded", () => {
     C.colors.muted
   );
 
-  // ------------------------------------------------------------
-  // Background
-  // ------------------------------------------------------------
+  // ============================================================
+  // BACKGROUND AMBIENCE
+  // ============================================================
 
   const backgroundGlow = createElement(
     "div",
@@ -102,9 +96,69 @@ document.addEventListener("DOMContentLoaded", () => {
 
   add(backgroundGlow);
 
-  // ------------------------------------------------------------
-  // Opening scenes
-  // ------------------------------------------------------------
+  // Small floating particles
+  const particleLayer = createElement(
+    "div",
+    "particle-layer"
+  );
+
+  add(particleLayer);
+
+  const particleCount = 28;
+  const particles = [];
+
+  for (let i = 0; i < particleCount; i++) {
+    const particle = createElement(
+      "span",
+      "particle"
+    );
+
+    const size =
+      Math.random() * 2.5 + 1;
+
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+
+    particle.style.left =
+      `${Math.random() * 100}%`;
+
+    particle.style.top =
+      `${Math.random() * 100}%`;
+
+    particle.style.opacity =
+      `${Math.random() * 0.45 + 0.15}`;
+
+    particleLayer.appendChild(particle);
+    particles.push(particle);
+  }
+
+  // Slowly move particles
+  particles.forEach((particle) => {
+    gsap.to(particle, {
+      x: gsap.utils.random(-35, 35),
+      y: gsap.utils.random(-55, 55),
+      opacity: gsap.utils.random(0.15, 0.65),
+      duration: gsap.utils.random(4, 8),
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+      delay: Math.random() * 4,
+    });
+  });
+
+  // Slowly move the ambient glow
+  gsap.to(backgroundGlow, {
+    scale: 1.18,
+    opacity: 0.7,
+    duration: 5,
+    repeat: -1,
+    yoyo: true,
+    ease: "sine.inOut",
+  });
+
+  // ============================================================
+  // OPENING
+  // ============================================================
 
   const opening1 = createTextScreen(
     M.opening[0],
@@ -116,12 +170,16 @@ document.addEventListener("DOMContentLoaded", () => {
     "cinematic-text emphasis"
   );
 
-  hide(opening1.section);
-  hide(opening2.section);
+  gsap.set(
+    [opening1.section, opening2.section],
+    {
+      autoAlpha: 0,
+    }
+  );
 
-  // ------------------------------------------------------------
-  // Middle sequence
-  // ------------------------------------------------------------
+  // ============================================================
+  // MIDDLE
+  // ============================================================
 
   const middleScenes = [];
 
@@ -133,14 +191,16 @@ document.addEventListener("DOMContentLoaded", () => {
         : "cinematic-text"
     );
 
-    hide(scene.section);
+    gsap.set(scene.section, {
+      autoAlpha: 0,
+    });
 
     middleScenes.push(scene);
   });
 
-  // ------------------------------------------------------------
-  // Reveal setup
-  // ------------------------------------------------------------
+  // ============================================================
+  // REVEAL
+  // ============================================================
 
   const reveal = createTextScreen(
     M.reveal,
@@ -152,12 +212,16 @@ document.addEventListener("DOMContentLoaded", () => {
     "cinematic-text thankyou-text"
   );
 
-  hide(reveal.section);
-  hide(thankYou.section);
+  gsap.set(
+    [reveal.section, thankYou.section],
+    {
+      autoAlpha: 0,
+    }
+  );
 
-  // ------------------------------------------------------------
-  // Golden line
-  // ------------------------------------------------------------
+  // ============================================================
+  // GOLD ACCENT LINE
+  // ============================================================
 
   const goldenLine = createElement(
     "div",
@@ -171,9 +235,9 @@ document.addEventListener("DOMContentLoaded", () => {
     autoAlpha: 0,
   });
 
-  // ------------------------------------------------------------
-  // Teacher reveal
-  // ------------------------------------------------------------
+  // ============================================================
+  // TEACHER PROFILE
+  // ============================================================
 
   const profile = createElement(
     "section",
@@ -254,31 +318,34 @@ document.addEventListener("DOMContentLoaded", () => {
     scale: 1.08,
   });
 
-  // ------------------------------------------------------------
-  // Appreciation scene
-  // ------------------------------------------------------------
+  // ============================================================
+  // APPRECIATION
+  // ============================================================
 
   const appreciation = createElement(
     "section",
     "scene appreciation-scene"
   );
 
-  const appreciationContent = createElement(
-    "div",
-    "appreciation-content"
-  );
+  const appreciationContent =
+    createElement(
+      "div",
+      "appreciation-content"
+    );
 
-  const appreciationSmall = createElement(
-    "div",
-    "profile-label",
-    "A FEW WORDS"
-  );
+  const appreciationSmall =
+    createElement(
+      "div",
+      "profile-label",
+      "A FEW WORDS"
+    );
 
-  const appreciationText = createElement(
-    "p",
-    "appreciation-text",
-    M.appreciation
-  );
+  const appreciationText =
+    createElement(
+      "p",
+      "appreciation-text",
+      M.appreciation
+    );
 
   appreciationContent.appendChild(
     appreciationSmall
@@ -299,16 +366,19 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   gsap.set(
-    [appreciationSmall, appreciationText],
+    [
+      appreciationSmall,
+      appreciationText,
+    ],
     {
       autoAlpha: 0,
       y: 25,
     }
   );
 
-  // ------------------------------------------------------------
-  // Final impact scene
-  // ------------------------------------------------------------
+  // ============================================================
+  // FINAL IMPACT
+  // ============================================================
 
   const final1 = createTextScreen(
     M.finalOne,
@@ -320,53 +390,75 @@ document.addEventListener("DOMContentLoaded", () => {
     "cinematic-text final-text final-emphasis"
   );
 
-  hide(final1.section);
-  hide(final2.section);
+  gsap.set(
+    [final1.section, final2.section],
+    {
+      autoAlpha: 0,
+    }
+  );
 
-  // ------------------------------------------------------------
-  // Closing scene
-  // ------------------------------------------------------------
+  // ============================================================
+  // CLOSING
+  // ============================================================
 
   const closing = createElement(
     "section",
     "scene closing-scene"
   );
 
-  const closingContent = createElement(
-    "div",
-    "closing-content"
+  const closingContent =
+    createElement(
+      "div",
+      "closing-content"
+    );
+
+  const closingTitle =
+    createElement(
+      "h2",
+      "closing-title",
+      "Happy Teachers' Day"
+    );
+
+  const closingName =
+    createElement(
+      "div",
+      "closing-name",
+      C.name
+    );
+
+  const closingLine =
+    createElement(
+      "div",
+      "closing-line",
+      M.closing
+    );
+
+  const replay =
+    createElement(
+      "button",
+      "replay-button",
+      "Watch again"
+    );
+
+  closingContent.appendChild(
+    closingTitle
   );
 
-  const closingTitle = createElement(
-    "h2",
-    "closing-title",
-    "Happy Teachers' Day"
+  closingContent.appendChild(
+    closingName
   );
 
-  const closingName = createElement(
-    "div",
-    "closing-name",
-    C.name
+  closingContent.appendChild(
+    closingLine
   );
 
-  const closingLine = createElement(
-    "div",
-    "closing-line",
-    M.closing
+  closingContent.appendChild(
+    replay
   );
 
-  const replay = createElement(
-    "button",
-    "replay-button",
-    "Watch again"
+  closing.appendChild(
+    closingContent
   );
-
-  closingContent.appendChild(closingTitle);
-  closingContent.appendChild(closingName);
-  closingContent.appendChild(closingLine);
-  closingContent.appendChild(replay);
-
-  closing.appendChild(closingContent);
 
   add(closing);
 
@@ -387,12 +479,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   );
 
-  // ------------------------------------------------------------
-  // Music
-  // ------------------------------------------------------------
+  // ============================================================
+  // MUSIC
+  // ============================================================
 
   function tryMusic() {
-    if (!audio || !C.music) return;
+    if (!audio || !C.music) {
+      return;
+    }
 
     audio.src = C.music;
 
@@ -402,7 +496,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function showSoundButton() {
-    if (document.querySelector(".sound-button")) {
+    if (
+      document.querySelector(
+        ".sound-button"
+      )
+    ) {
       return;
     }
 
@@ -426,27 +524,27 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
-  // ------------------------------------------------------------
-  // Timeline
-  // ------------------------------------------------------------
+  // ============================================================
+  // TIMELINE
+  // ============================================================
 
   function createTimeline() {
     const tl = gsap.timeline({
       paused: true,
     });
 
-    // Initial darkness
-    tl.to(
-      ".container",
-      {
-        autoAlpha: 1,
-        duration: 0.8,
-      }
-    );
+    // ----------------------------------------------------------
+    // START
+    // ----------------------------------------------------------
 
-    // ------------------------------------------
-    // "Some people teach subjects."
-    // ------------------------------------------
+    tl.to(".container", {
+      autoAlpha: 1,
+      duration: 0.8,
+    });
+
+    // ----------------------------------------------------------
+    // OPENING 1
+    // ----------------------------------------------------------
 
     tl.to(opening1.section, {
       autoAlpha: 1,
@@ -467,13 +565,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
 
-    tl.to({}, { duration: 1.4 });
+    tl.to({}, {
+      duration: 1.4,
+    });
 
     tl.to(opening1.text, {
-      autoAlpha: 0,
       y: -20,
+      autoAlpha: 0,
       duration: 0.7,
-      ease: "power2.in",
     });
 
     tl.to(opening1.section, {
@@ -481,9 +580,9 @@ document.addEventListener("DOMContentLoaded", () => {
       duration: 0.4,
     });
 
-    // ------------------------------------------
-    // "Some teach much more."
-    // ------------------------------------------
+    // ----------------------------------------------------------
+    // OPENING 2
+    // ----------------------------------------------------------
 
     tl.to(opening2.section, {
       autoAlpha: 1,
@@ -506,7 +605,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
 
-    tl.to({}, { duration: 1.5 });
+    tl.to({}, {
+      duration: 1.5,
+    });
 
     tl.to(opening2.text, {
       autoAlpha: 0,
@@ -519,55 +620,55 @@ document.addEventListener("DOMContentLoaded", () => {
       duration: 0.3,
     });
 
-    // ------------------------------------------
-    // Middle statements
-    // ------------------------------------------
+    // ----------------------------------------------------------
+    // MIDDLE
+    // ----------------------------------------------------------
 
-    middleScenes.forEach((scene, index) => {
-      tl.to(scene.section, {
-        autoAlpha: 1,
-        duration: 0.4,
-      });
-
-      tl.fromTo(
-        scene.text,
-        {
-          y: 25,
-          autoAlpha: 0,
-        },
-        {
-          y: 0,
+    middleScenes.forEach(
+      (scene, index) => {
+        tl.to(scene.section, {
           autoAlpha: 1,
-          duration: 0.9,
-          ease: "power3.out",
-        }
-      );
+          duration: 0.4,
+        });
 
-      tl.to(
-        {},
-        {
+        tl.fromTo(
+          scene.text,
+          {
+            y: 25,
+            autoAlpha: 0,
+          },
+          {
+            y: 0,
+            autoAlpha: 1,
+            duration: 0.9,
+            ease: "power3.out",
+          }
+        );
+
+        tl.to({}, {
           duration:
-            index === middleScenes.length - 1
+            index ===
+            middleScenes.length - 1
               ? 1.2
               : 0.8,
-        }
-      );
+        });
 
-      tl.to(scene.text, {
-        autoAlpha: 0,
-        y: -20,
-        duration: 0.55,
-      });
+        tl.to(scene.text, {
+          y: -20,
+          autoAlpha: 0,
+          duration: 0.55,
+        });
 
-      tl.to(scene.section, {
-        autoAlpha: 0,
-        duration: 0.3,
-      });
-    });
+        tl.to(scene.section, {
+          autoAlpha: 0,
+          duration: 0.3,
+        });
+      }
+    );
 
-    // ------------------------------------------
-    // "And today..."
-    // ------------------------------------------
+    // ----------------------------------------------------------
+    // REVEAL
+    // ----------------------------------------------------------
 
     tl.to(reveal.section, {
       autoAlpha: 1,
@@ -587,7 +688,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
 
-    tl.to({}, { duration: 1 });
+    tl.to({}, {
+      duration: 1,
+    });
 
     tl.to(reveal.text, {
       autoAlpha: 0,
@@ -599,9 +702,9 @@ document.addEventListener("DOMContentLoaded", () => {
       duration: 0.3,
     });
 
-    // ------------------------------------------
-    // Golden line
-    // ------------------------------------------
+    // ----------------------------------------------------------
+    // GOLD ACCENT
+    // ----------------------------------------------------------
 
     tl.to(goldenLine, {
       autoAlpha: 1,
@@ -610,15 +713,17 @@ document.addEventListener("DOMContentLoaded", () => {
       ease: "power3.inOut",
     });
 
-    tl.to({}, { duration: 0.5 });
+    tl.to({}, {
+      duration: 0.4,
+    });
 
-    // ------------------------------------------
-    // "we wanted to say thank you."
-    // ------------------------------------------
+    // ----------------------------------------------------------
+    // THANK YOU
+    // ----------------------------------------------------------
 
     tl.to(thankYou.section, {
       autoAlpha: 1,
-      duration: 0.5,
+      duration: 0.4,
     });
 
     tl.fromTo(
@@ -635,7 +740,19 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
 
-    tl.to({}, { duration: 1.1 });
+    tl.to({}, {
+      duration: 1.2,
+    });
+
+    // IMPORTANT:
+    // remove the line BEFORE the text disappears
+    // so it never crosses the message.
+
+    tl.to(goldenLine, {
+      scaleX: 0,
+      autoAlpha: 0,
+      duration: 0.6,
+    });
 
     tl.to(thankYou.text, {
       autoAlpha: 0,
@@ -647,15 +764,9 @@ document.addEventListener("DOMContentLoaded", () => {
       duration: 0.3,
     });
 
-    tl.to(goldenLine, {
-      scaleX: 0,
-      autoAlpha: 0,
-      duration: 0.6,
-    });
-
-    // ------------------------------------------
-    // Teacher name reveal
-    // ------------------------------------------
+    // ----------------------------------------------------------
+    // TEACHER REVEAL
+    // ----------------------------------------------------------
 
     tl.to(profile, {
       autoAlpha: 1,
@@ -694,9 +805,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "-=0.35"
     );
 
-    // ------------------------------------------
-    // Photo reveal
-    // ------------------------------------------
+    // ----------------------------------------------------------
+    // PHOTO
+    // ----------------------------------------------------------
 
     tl.to(
       photoFrame,
@@ -719,11 +830,13 @@ document.addEventListener("DOMContentLoaded", () => {
       "<"
     );
 
-    tl.to({}, { duration: 1.8 });
+    tl.to({}, {
+      duration: 1.8,
+    });
 
-    // ------------------------------------------
-    // Appreciation
-    // ------------------------------------------
+    // ----------------------------------------------------------
+    // APPRECIATION
+    // ----------------------------------------------------------
 
     tl.to(profile, {
       autoAlpha: 0,
@@ -757,10 +870,15 @@ document.addEventListener("DOMContentLoaded", () => {
       "-=0.2"
     );
 
-    tl.to({}, { duration: 2.3 });
+    tl.to({}, {
+      duration: 2.3,
+    });
 
     tl.to(
-      [appreciationSmall, appreciationText],
+      [
+        appreciationSmall,
+        appreciationText,
+      ],
       {
         autoAlpha: 0,
         y: -15,
@@ -773,9 +891,9 @@ document.addEventListener("DOMContentLoaded", () => {
       duration: 0.5,
     });
 
-    // ------------------------------------------
-    // Final emotional twist
-    // ------------------------------------------
+    // ----------------------------------------------------------
+    // FINAL TWIST
+    // ----------------------------------------------------------
 
     tl.to(final1.section, {
       autoAlpha: 1,
@@ -795,7 +913,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
 
-    tl.to({}, { duration: 1.3 });
+    tl.to({}, {
+      duration: 1.3,
+    });
 
     tl.to(final1.text, {
       autoAlpha: 0,
@@ -826,7 +946,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
 
-    tl.to({}, { duration: 1.8 });
+    tl.to({}, {
+      duration: 1.8,
+    });
 
     tl.to(final2.text, {
       autoAlpha: 0,
@@ -839,9 +961,9 @@ document.addEventListener("DOMContentLoaded", () => {
       duration: 0.4,
     });
 
-    // ------------------------------------------
-    // Closing
-    // ------------------------------------------
+    // ----------------------------------------------------------
+    // CLOSING
+    // ----------------------------------------------------------
 
     tl.to(closing, {
       autoAlpha: 1,
@@ -891,9 +1013,9 @@ document.addEventListener("DOMContentLoaded", () => {
     return tl;
   }
 
-  // ------------------------------------------------------------
-  // Replay
-  // ------------------------------------------------------------
+  // ============================================================
+  // REPLAY
+  // ============================================================
 
   replay.addEventListener("click", () => {
     if (!timeline) {
@@ -901,21 +1023,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     timeline.restart();
-
     tryMusic();
   });
 
-  // ------------------------------------------------------------
-  // Start
-  // ------------------------------------------------------------
+  // ============================================================
+  // START
+  // ============================================================
 
   timeline = createTimeline();
 
-  // Animation starts automatically.
   timeline.play();
 
-  // Music attempts automatically.
   tryMusic();
-
-  started = true;
 });
