@@ -1,5 +1,5 @@
 /* ============================================================
-   CINEMATIC TEACHERS' DAY EXPERIENCE
+   CINEMATIC TEACHERS' DAY
    ============================================================ */
 
 :root {
@@ -26,11 +26,13 @@ html,
 body {
   width: 100%;
   height: 100%;
+
   overflow: hidden;
 }
 
 body {
   background: var(--background);
+
   color: var(--text);
 
   font-family:
@@ -41,6 +43,7 @@ body {
     sans-serif;
 
   -webkit-font-smoothing: antialiased;
+
   text-rendering: optimizeLegibility;
 
   user-select: none;
@@ -86,30 +89,64 @@ body {
 .background-glow {
   position: fixed;
 
-  width: 55vw;
-  height: 55vw;
+  width: 65vw;
+  height: 65vw;
 
-  max-width: 650px;
-  max-height: 650px;
+  max-width: 700px;
+  max-height: 700px;
 
   left: 50%;
   top: 50%;
 
-  transform: translate(-50%, -50%);
+  transform:
+    translate(-50%, -50%);
 
   border-radius: 50%;
 
   background:
     radial-gradient(
       circle,
-      rgba(212, 175, 55, 0.09) 0%,
-      rgba(212, 175, 55, 0.035) 35%,
-      transparent 70%
+      rgba(212, 175, 55, 0.11) 0%,
+      rgba(212, 175, 55, 0.045) 35%,
+      transparent 72%
     );
 
   filter: blur(25px);
 
   pointer-events: none;
+
+  z-index: 0;
+}
+
+/* ============================================================
+   PARTICLES
+   ============================================================ */
+
+.particle-layer {
+  position: fixed;
+
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+
+  display: block;
+
+  border-radius: 50%;
+
+  background:
+    rgba(212, 175, 55, 0.7);
+
+  box-shadow:
+    0 0 8px
+    rgba(212, 175, 55, 0.25);
 }
 
 /* ============================================================
@@ -187,23 +224,36 @@ body {
     );
 
   font-weight: 400;
+
+  max-width: 90vw;
 }
 
 /* ============================================================
-   GOLDEN LINE
+   GOLD ACCENT
    ============================================================ */
+
+/*
+   Deliberately positioned below the text.
+   It no longer passes through the words.
+*/
 
 .golden-line {
   position: fixed;
 
   left: 50%;
-  top: 50%;
 
-  width: min(180px, 45vw);
+  top: calc(50% + 4.5rem);
+
+  width:
+    min(
+      150px,
+      38vw
+    );
 
   height: 1px;
 
-  transform: translate(-50%, -50%);
+  transform:
+    translateX(-50%);
 
   transform-origin: center;
 
@@ -216,26 +266,28 @@ body {
     );
 
   box-shadow:
-    0 0 18px rgba(212, 175, 55, 0.35);
+    0 0 14px
+    rgba(212, 175, 55, 0.28);
 
-  z-index: 10;
+  z-index: 3;
 
   pointer-events: none;
 }
 
 /* ============================================================
-   TEACHER PROFILE
+   PROFILE
    ============================================================ */
 
 .profile-scene {
   z-index: 8;
-
-  align-items: center;
-  justify-content: center;
 }
 
 .profile-content {
-  width: min(90vw, 700px);
+  width:
+    min(
+      90vw,
+      700px
+    );
 
   display: flex;
 
@@ -302,7 +354,7 @@ body {
 }
 
 /* ============================================================
-   PHOTO FRAME
+   PHOTO
    ============================================================ */
 
 .photo-frame {
@@ -328,16 +380,18 @@ body {
 
   border-radius: 8px;
 
-  border: 1px solid
+  border:
+    1px solid
     rgba(212, 175, 55, 0.35);
 
   background: #10141e;
 
   box-shadow:
     0 25px 80px
-      rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.55),
+
     0 0 40px
-      rgba(212, 175, 55, 0.08);
+    rgba(212, 175, 55, 0.08);
 
   isolation: isolate;
 }
@@ -386,7 +440,11 @@ body {
 }
 
 .appreciation-content {
-  width: min(88vw, 700px);
+  width:
+    min(
+      88vw,
+      700px
+    );
 }
 
 .appreciation-text {
@@ -517,7 +575,8 @@ body {
 
   border-radius: 999px;
 
-  border: 1px solid
+  border:
+    1px solid
     rgba(212, 175, 55, 0.4);
 
   background:
@@ -548,11 +607,13 @@ body {
   border-color:
     rgba(212, 175, 55, 0.7);
 
-  transform: translateY(-2px);
+  transform:
+    translateY(-2px);
 }
 
 .replay-button:active {
-  transform: scale(0.96);
+  transform:
+    scale(0.96);
 }
 
 /* ============================================================
@@ -566,7 +627,8 @@ body {
 
   bottom: 1.4rem;
 
-  transform: translateX(-50%);
+  transform:
+    translateX(-50%);
 
   z-index: 999;
 
@@ -576,7 +638,8 @@ body {
 
   border-radius: 999px;
 
-  border: 1px solid
+  border:
+    1px solid
     rgba(212, 175, 55, 0.35);
 
   background:
@@ -598,6 +661,7 @@ body {
    ============================================================ */
 
 @media screen and (max-width: 600px) {
+
   .scene {
     padding:
       1.2rem;
@@ -626,15 +690,24 @@ body {
   .replay-button {
     margin-top: 2.2rem;
   }
+
+  .golden-line {
+    top: calc(50% + 4rem);
+
+    width: 120px;
+  }
+
 }
 
 /* ============================================================
-   SHORT SCREENS / LANDSCAPE
+   SHORT SCREENS
    ============================================================ */
 
 @media screen and (max-height: 600px) {
+
   .photo-frame {
     width: 150px;
+
     height: 190px;
 
     margin-top: 1rem;
@@ -650,6 +723,7 @@ body {
 
   .appreciation-text {
     font-size: 0.95rem;
+
     line-height: 1.6;
   }
 
@@ -660,18 +734,27 @@ body {
   .replay-button {
     margin-top: 1.3rem;
   }
+
+  .golden-line {
+    top: calc(50% + 3.5rem);
+  }
+
 }
 
 /* ============================================================
-   REDUCE MOTION
+   REDUCED MOTION
    ============================================================ */
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+
     animation-iteration-count: 1 !important;
+
     transition-duration: 0.01ms !important;
   }
-  }
+
+   }
